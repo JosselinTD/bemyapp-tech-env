@@ -13,6 +13,7 @@ function NavigationController($scope, $rootScope, Session) {
     $rootScope.id = '';
     
     ctrl.goTo = Session.goTo;
+    ctrl.grab = grab;
     
     $scope.$watch('Session.current', function() {
         var current = Session.current.navigation;
@@ -67,4 +68,13 @@ function NavigationController($scope, $rootScope, Session) {
         $rootScope.href = 'home';
         return;
     }, true);
+    
+    function grab(toGrab) {
+        var toGrab = angular.copy(Session.read({name: toGrab}));
+        if (toGrab) {
+            toGrab.url = Session.current.url;
+            toGrab.navigation = Session.current.navigation;
+            Session.update(toGrab);
+        }
+    }
 }

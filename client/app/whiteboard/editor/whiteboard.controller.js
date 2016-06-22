@@ -4,7 +4,7 @@ angular
     .module('bemyapp-tech-env')
     .controller('WhiteboardController', WhiteboardController);
 
-function WhiteboardController($scope, LoadWhiteboard, InitWhiteboard, Whiteboard, Session, _) {
+function WhiteboardController($scope, LoadWhiteboard, InitWhiteboard, Whiteboard, Session, _, go) {
     var ctrl = this;
     
     $scope.initDiagram = initDiagram;
@@ -24,17 +24,15 @@ function WhiteboardController($scope, LoadWhiteboard, InitWhiteboard, Whiteboard
                 return;
             }
             
-            $scope.diagram = InitWhiteboard('myDiagramDiv');
+            $scope.diagram = InitWhiteboard(go, 'myDiagramDiv');
             
             $scope.diagram.addModelChangedListener(function(e) {
                 if (e.um === 'CommittedTransaction') {
                     fromHere();
                 }
             });
-            /* $scope.diagram.addDiagramListener('LayoutCompleted', fromHere);
-            $scope.diagram.addDiagramListener('SelectionMoved', fromHere); */
             
-            LoadWhiteboard($scope.diagram, ctrl.whiteboard.datas || {});
+            LoadWhiteboard(go, $scope.diagram, ctrl.whiteboard.datas || {});
             
             $scope.$watch('whiteboardCtrl.whiteboard', function() {
                 fromInternet();
@@ -46,7 +44,7 @@ function WhiteboardController($scope, LoadWhiteboard, InitWhiteboard, Whiteboard
     
     function fromInternet() {
         if (!_.isEqual(JSON.parse($scope.diagram.model.toJson()), ctrl.whiteboard.datas)) {
-            LoadWhiteboard($scope.diagram, ctrl.whiteboard.datas);
+            LoadWhiteboard(go, $scope.diagram, ctrl.whiteboard.datas);
         }
     }
     

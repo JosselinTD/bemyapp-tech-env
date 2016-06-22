@@ -4,4 +4,13 @@
     <span ng-click="navigationCtrl.goTo('conference')">Conference</span>
     <span ng-click="navigationCtrl.goTo('videos-playlist')">Playlist</span>
     <span ng-click="navigationCtrl.goTo('videos-player')">Player</span>
+    
+    <span>
+        <select ng-model="navigationCtrl.toGrab">
+            <option ng-repeat="session in Session.all" value="{{ session.name }}">
+                {{ session.name }}
+            </option>
+        </select>
+        <button ng-click="navigationCtrl.grab(navigationCtrl.toGrab)">Grab {{ navigationCtrl.toGrab }} here</button>
+    </span>
 </div>

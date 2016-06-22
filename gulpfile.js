@@ -2,15 +2,9 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 
 var libs = ['node_modules/gojs/release/go.js',
-    'client/libs/go-bpmn/jquery.min.js',
-    'client/libs/go-bpmn/jquery-ui.min.js',
-    'client/libs/go-bpmn/BPMN.js',
-    'client/libs/go-bpmn/BPMNClasses.js',
-    'client/libs/go-bpmn/DrawCommandHandler.js',
     'node_modules/lodash/lodash.js',
     'node_modules/angular/angular.min.js'];
-var libsCss = ['client/libs/go-bpmn/BPMN.css',
-    'client/libs/go-bpmn/jquery-ui.css'];
+var libsCss = [];
 
 gulp.task('default', function() {
     gulp.src(libs)
