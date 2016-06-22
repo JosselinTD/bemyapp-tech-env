@@ -1,5 +1,7 @@
 body {
     background-image: url(../assets/background-light.png);
+    padding: 0;
+    margin: 0;
 }
 
 button, select, input {
@@ -31,6 +33,32 @@ h1 {
     font-size: 1.2em;
     
     margin-bottom: 10px;
+}
+.navigation {
+    height: 50px;
+    line-height: 50px;
+    background-image: url(../assets/background-dark.png);
+    color: white;
+    font-size: 1.1em;
+}
+
+.navigation > * {
+    display: inline-block;
+}
+
+.links span, .logout {
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+.links span:hover, .logout:hover {
+    color: rgb(200, 200, 200);
+}
+
+.tools {
+    float: right;
+    height: 50px;
+    line-height: 50px;
 }
 .sessions {
     text-align: center;

@@ -1,5 +1,7 @@
 body {
     background-image: url(../assets/background-light.png);
+    padding: 0;
+    margin: 0;
 }
 
 button, select, input {
