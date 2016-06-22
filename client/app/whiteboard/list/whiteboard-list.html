@@ -1,0 +1,7 @@
+<div class="whiteboard-list">
+    <ul>
+        <li ng-repeat="whiteboard in whiteboardListCtrl.whiteboards"
+            ng-click="whiteboardListCtrl.goTo('whiteboard/' + whiteboard._id)">{{ whiteboard.title }}</li>
+    </ul>
+    <input type="text" ng-model="newTitle"/><button ng-click="whiteboardListCtrl.add(newTitle)">Add</button>
+</div>

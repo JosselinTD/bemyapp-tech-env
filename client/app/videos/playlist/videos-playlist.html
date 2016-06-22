@@ -1,0 +1,9 @@
+<div class="videos-playlist">
+    <ul>
+        <li ng-repeat="video in videosPlaylistCtrl.videos">
+            <img ng-src="//img.youtube.com/vi/{{ video.videoId }}/0.jpg"/>
+        </li>
+    </ul>
+    <input type="text" ng-model="newVideoId"/>
+    <button ng-click="videosPlaylistCtrl.add(newVideoId)">Add</button>
+</div>

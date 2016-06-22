@@ -1,0 +1,13 @@
+<div class="sessions">
+    <div class="connect" ng-if="!sessionCtrl.hasSession()">
+        <input type="text" ng-model="sessionCtrl.selection"/>
+        or
+        <select ng-model="sessionCtrl.selection">
+            <option ng-repeat="session in sessionCtrl.sessions" value="{{ session.name }}">{{ session.name }}</option>
+        </select>
+        <button ng-click="sessionCtrl.selectSession(sessionCtrl.selection)">Select or create {{ sessionCtrl.selection }}</button>
+    </div>
+    <div class="connect" ng-if="sessionCtrl.hasSession()">
+        Connected as {{ sessionCtrl.current }}
+    </div>
+</div>

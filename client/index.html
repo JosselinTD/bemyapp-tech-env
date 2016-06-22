@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>BeMyApp Tech Env</title>
+        <link rel="stylesheet" href="css/vendor.css" type="text/css" />
+        <link rel="stylesheet" href="css/app.css" type="text/css" />
+    </head>
+    <body ng-app="bemyapp-tech-env">
+        <navigation></navigation>
+        
+        <session ng-if="href === 'login'"></session>
+        <whiteboard ng-if="href === 'whiteboard'" wid="id"></whiteboard>
+        <whiteboard-list ng-if="href === 'whiteboard-list'"></whiteboard-list>
+        <conference ng-if="href === 'conference'"></conference>
+        <videos-playlist ng-if="href === 'videos-playlist'"></videos-playlist>
+        <videos-player ng-if="href === 'videos-player'"></videos-player>
+        <url ng-if="href === 'url'" target="url"></url>
+        
+        <div ng-if="href === 'home'"><h1>Bienvenue !</h1></div>
+        
+        <script src="//www.youtube.com/iframe_api"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="js/vendor.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+    </body>
+</html>

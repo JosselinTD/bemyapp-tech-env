@@ -1,0 +1,22 @@
+{
+  "name": "bemyapp-tech-env",
+  "version": "0.0.1",
+  "description": "",
+  "dependencies": {
+    "angular": "^1.5.7",
+    "bluebird": "^3.4.0",
+    "express": "^4.10.2",
+    "gojs": "^1.6.9",
+    "jquery": "^3.0.0",
+    "jquery-ui": "^1.10.5",
+    "lodash": "^4.13.1",
+    "mongodb": "^2.1.18",
+    "mongoose": "^4.5.0",
+    "socket.io": "^1.4.6"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-concat-vendor": "0.0.4"
+  }
+}

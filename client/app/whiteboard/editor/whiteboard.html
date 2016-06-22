@@ -1,0 +1,49 @@
+<div>
+    <div id="currentFile" ng-bind="whiteboardCtrl.whiteboard.title"></div>
+    <div id="PaletteAndDiagram">
+        <div id="sideBar">
+            <span style="display: inline-block; vertical-align: top; padding: 5px; width:100%">
+                <div id="accordion">
+                    <h4 ng-click="openPaletteLevel1 = !openPaletteLevel1">
+                        Level 1 items
+                    </h4>
+                    <div ng-show="openPaletteLevel1">
+                        <div id="myPaletteLevel1" class="myPaletteDiv">
+                            <canvas tabindex="0" width="180" height="625">
+                                This text is displayed if your browser does not support the Canvas HTML element.
+                            </canvas>
+                        </div>
+                    </div>
+                    <h4 ng-click="openPaletteLevel2 = !openPaletteLevel2">
+                        Level 2 items
+                    </h4>
+                    <div ng-show="openPaletteLevel2">
+                        <div id="myPaletteLevel2" class="myPaletteDiv">
+                            <canvas tabindex="0" width="169" height="625">
+                                This text is displayed if your browser does not support the Canvas HTML element.
+                            </canvas>
+                        </div>
+                    </div>
+                    <h4 ng-click="openPaletteLevel3 = !openPaletteLevel3">
+                        Other items
+                    </h4>
+                    <div ng-show="openPaletteLevel3">
+                        <div id="myPaletteLevel3" class="myPaletteDiv">
+                            <canvas tabindex="0" width="169" height="625">
+                                This text is displayed if your browser does not support the Canvas HTML element.
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </span>
+        </div>
+        <div id="myDiagramDiv" style="position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0); cursor: auto;">
+            <canvas tabindex="0" width="1061" height="685" style="position: absolute; top: 0px; left: 0px; z-index: 2; -webkit-user-select: none; width: 1061px; height: 685px; cursor: auto;">
+                This text is displayed if your browser does not support the Canvas HTML element.
+            </canvas>
+            <div style="position: absolute; overflow: auto; width: 1061px; height: 700px; z-index: 1;">
+                <div style="position: absolute; width: 1337.07px; height: 1px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
