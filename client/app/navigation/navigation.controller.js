@@ -14,6 +14,7 @@ function NavigationController($scope, $rootScope, Session) {
     
     ctrl.goTo = Session.goTo;
     ctrl.grab = grab;
+    ctrl.logout = logout;
     
     $scope.$watch('Session.current', function() {
         var current = Session.current.navigation;
@@ -76,5 +77,9 @@ function NavigationController($scope, $rootScope, Session) {
             toGrab.navigation = Session.current.navigation;
             Session.update(toGrab);
         }
+    }
+    
+    function logout() {
+        Session.unset();
     }
 }

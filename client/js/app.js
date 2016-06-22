@@ -18,28 +18,6 @@ angular
 
 angular
     .module('bemyapp-tech-env')
-    .controller('ConferenceController', ConferenceController);
-
-function ConferenceController() {
-    
-}
-/* global angular */
-
-angular
-    .module('bemyapp-tech-env')
-    .directive('conference', ConferenceDirective);
-
-function ConferenceDirective() {
-    return {
-        restrict: 'E',
-        templateUrl: 'app/conference/conference.html'
-    };
-}
-
-/* global angular */
-
-angular
-    .module('bemyapp-tech-env')
     .controller('NavigationController', NavigationController);
 
 function NavigationController($scope, $rootScope, Session) {
@@ -52,6 +30,7 @@ function NavigationController($scope, $rootScope, Session) {
     
     ctrl.goTo = Session.goTo;
     ctrl.grab = grab;
+    ctrl.logout = logout;
     
     $scope.$watch('Session.current', function() {
         var current = Session.current.navigation;
@@ -115,6 +94,10 @@ function NavigationController($scope, $rootScope, Session) {
             Session.update(toGrab);
         }
     }
+    
+    function logout() {
+        Session.unset();
+    }
 }
 /* global angular */
 
@@ -130,6 +113,28 @@ function NavigationDirective() {
         controllerAs: 'navigationCtrl'
     };
 }
+/* global angular */
+
+angular
+    .module('bemyapp-tech-env')
+    .controller('ConferenceController', ConferenceController);
+
+function ConferenceController() {
+    
+}
+/* global angular */
+
+angular
+    .module('bemyapp-tech-env')
+    .directive('conference', ConferenceDirective);
+
+function ConferenceDirective() {
+    return {
+        restrict: 'E',
+        templateUrl: 'app/conference/conference.html'
+    };
+}
+
 /* global angular */
 
 angular
@@ -160,30 +165,39 @@ function SessionDirective() {
     };
 }
 
-/* global angular */
+/* global angular, localStorage */
 
 angular
     .module('bemyapp-tech-env')
     .service('Session', SessionService);
 
-function SessionService(Socket) {
+function SessionService(Socket, $rootScope) {
     var service = this;
     angular.extend(service, new Socket('session'));
     
     service.current = {};
     
     service.set = setCurrent;
+    service.unset = unsetCurrent;
     service.hasSession = hasSession;
     service.goTo = goTo;
+    
+    $rootScope.$on('readed:session', readed);
     
     // /////////////////////////////////////////
     
     function setCurrent(name) {
         var exist = service.read({name: name});
         if (exist) {
+            localStorage.setItem('session', name);
             return service.current = exist;
         }
         service.create({name: name});
+    }
+    
+    function unsetCurrent() {
+        localStorage.removeItem('session');
+        service.current = {};
     }
     
     function hasSession() {
@@ -195,15 +209,49 @@ function SessionService(Socket) {
             service.update(angular.extend({}, service.current, {navigation: navigation}));
         }
     }
+    
+    function readed() {
+        var storedSession = localStorage.getItem('session');
+        if (storedSession) {
+            setCurrent(storedSession);
+        }
+    }
 }
 
 /* global angular */
 
 angular
     .module('bemyapp-tech-env')
+    .controller('UrlController', UrlController);
+
+function UrlController(Session, $sce, $scope) {
+    var ctrl = this;
+    ctrl.trustedUrl = $sce.trustAsResourceUrl($scope.url);
+}
+/* global angular */
+
+angular
+    .module('bemyapp-tech-env')
+    .directive('url', UrlDirective);
+
+function UrlDirective() {
+    return {
+        restrict: 'E',
+        templateUrl: 'app/url/url.html',
+        controller: 'UrlController',
+        controllerAs:  'urlCtrl',
+        scope: {
+            url: '=target'
+        }
+    };
+}
+/* global angular */
+
+angular
+    .module('bemyapp-tech-env')
     .factory('Socket', SocketService);
 
-function SocketService(SocketWrapper) {
+function SocketService(SocketWrapper, $rootScope) {
     return function(model) {
         var service = this;
         var isReaded = false;
@@ -270,20 +318,24 @@ function SocketService(SocketWrapper) {
                 }
                 service.all.push(sModel);
             });
+            $rootScope.$broadcast('readed:' + model);
         }
         
         function created(model) {
             readed([model]);
+            $rootScope.$broadcast('created:' + model);
         }
         
         function updated(model) {
             readed([model]);
+            $rootScope.$broadcast('updated:' + model);
         }
         
         function removed(id) {
             var toDelete = read({_id: id});
             if (toDelete && !Array.isArray(toDelete)) {
                 service.all.splice(service.all.indexOf(toDelete), 1);
+                $rootScope.$broadcast('removed:' + model);
             }
         }
         
@@ -333,33 +385,6 @@ function VideosService(Socket) {
     angular.extend(service, new Socket('videos'));
 }
 
-/* global angular */
-
-angular
-    .module('bemyapp-tech-env')
-    .controller('UrlController', UrlController);
-
-function UrlController(Session, $sce, $scope) {
-    var ctrl = this;
-    ctrl.trustedUrl = $sce.trustAsResourceUrl($scope.url);
-}
-/* global angular */
-
-angular
-    .module('bemyapp-tech-env')
-    .directive('url', UrlDirective);
-
-function UrlDirective() {
-    return {
-        restrict: 'E',
-        templateUrl: 'app/url/url.html',
-        controller: 'UrlController',
-        controllerAs:  'urlCtrl',
-        scope: {
-            url: '=target'
-        }
-    };
-}
 /* global angular */
 
 angular

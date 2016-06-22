@@ -4,7 +4,7 @@ angular
     .module('bemyapp-tech-env')
     .factory('Socket', SocketService);
 
-function SocketService(SocketWrapper) {
+function SocketService(SocketWrapper, $rootScope) {
     return function(model) {
         var service = this;
         var isReaded = false;
@@ -71,20 +71,24 @@ function SocketService(SocketWrapper) {
                 }
                 service.all.push(sModel);
             });
+            $rootScope.$broadcast('readed:' + model);
         }
         
         function created(model) {
             readed([model]);
+            $rootScope.$broadcast('created:' + model);
         }
         
         function updated(model) {
             readed([model]);
+            $rootScope.$broadcast('updated:' + model);
         }
         
         function removed(id) {
             var toDelete = read({_id: id});
             if (toDelete && !Array.isArray(toDelete)) {
                 service.all.splice(service.all.indexOf(toDelete), 1);
+                $rootScope.$broadcast('removed:' + model);
             }
         }
         
