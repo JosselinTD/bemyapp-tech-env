@@ -222,33 +222,6 @@ function SessionService(Socket, $rootScope) {
 
 angular
     .module('bemyapp-tech-env')
-    .controller('UrlController', UrlController);
-
-function UrlController(Session, $sce, $scope) {
-    var ctrl = this;
-    ctrl.trustedUrl = $sce.trustAsResourceUrl($scope.url);
-}
-/* global angular */
-
-angular
-    .module('bemyapp-tech-env')
-    .directive('url', UrlDirective);
-
-function UrlDirective() {
-    return {
-        restrict: 'E',
-        templateUrl: 'app/url/url.html',
-        controller: 'UrlController',
-        controllerAs:  'urlCtrl',
-        scope: {
-            url: '=target'
-        }
-    };
-}
-/* global angular */
-
-angular
-    .module('bemyapp-tech-env')
     .factory('Socket', SocketService);
 
 function SocketService(SocketWrapper, $rootScope) {
@@ -378,6 +351,33 @@ function SocketWrapperService(io, $rootScope) {
 
 angular
     .module('bemyapp-tech-env')
+    .controller('UrlController', UrlController);
+
+function UrlController(Session, $sce, $scope) {
+    var ctrl = this;
+    ctrl.trustedUrl = $sce.trustAsResourceUrl($scope.url);
+}
+/* global angular */
+
+angular
+    .module('bemyapp-tech-env')
+    .directive('url', UrlDirective);
+
+function UrlDirective() {
+    return {
+        restrict: 'E',
+        templateUrl: 'app/url/url.html',
+        controller: 'UrlController',
+        controllerAs:  'urlCtrl',
+        scope: {
+            url: '=target'
+        }
+    };
+}
+/* global angular */
+
+angular
+    .module('bemyapp-tech-env')
     .service('Videos', VideosService);
 
 function VideosService(Socket) {
@@ -477,41 +477,6 @@ function VideosPlayerDirective() {
         }
     };
 }
-/* global angular */
-
-angular
-    .module('bemyapp-tech-env')
-    .controller('VideosPlaylistController', VideosPlaylistController);
-
-function VideosPlaylistController(Videos) {
-    var ctrl = this;
-    
-    ctrl.videos = Videos.all;
-    
-    ctrl.add = add;
-    
-    // /////////////////////////////
-    
-    function add(videoId) {
-        Videos.create({videoId: videoId});
-    }
-}
-
-/* global angular */
-
-angular
-    .module('bemyapp-tech-env')
-    .directive('videosPlaylist', VideosPlaylistDirective);
-
-function VideosPlaylistDirective() {
-    return {
-        restrict: 'E',
-        templateUrl: 'app/videos/playlist/videos-playlist.html',
-        controller : 'VideosPlaylistController',
-        controllerAs: 'videosPlaylistCtrl'
-    };
-}
-
 /* global angular, go */
 
 angular
@@ -791,6 +756,9 @@ function WhiteboardController($scope, LoadWhiteboard, InitWhiteboard, Whiteboard
     
     function initDiagram() {
         var watcher = $scope.$watch('Whiteboard.all', function() {
+            if (!Whiteboard.isFilled()) {
+                return;
+            }
             ctrl.whiteboard = Whiteboard.read({_id: $scope.id});
             
             if (!ctrl.whiteboard) {
@@ -849,6 +817,41 @@ function WhiteboardDirective(InitWhiteboard, LoadWhiteboard) {
         }
     };
 }
+/* global angular */
+
+angular
+    .module('bemyapp-tech-env')
+    .controller('VideosPlaylistController', VideosPlaylistController);
+
+function VideosPlaylistController(Videos) {
+    var ctrl = this;
+    
+    ctrl.videos = Videos.all;
+    
+    ctrl.add = add;
+    
+    // /////////////////////////////
+    
+    function add(videoId) {
+        Videos.create({videoId: videoId});
+    }
+}
+
+/* global angular */
+
+angular
+    .module('bemyapp-tech-env')
+    .directive('videosPlaylist', VideosPlaylistDirective);
+
+function VideosPlaylistDirective() {
+    return {
+        restrict: 'E',
+        templateUrl: 'app/videos/playlist/videos-playlist.html',
+        controller : 'VideosPlaylistController',
+        controllerAs: 'videosPlaylistCtrl'
+    };
+}
+
 /* global angular */
 
 angular

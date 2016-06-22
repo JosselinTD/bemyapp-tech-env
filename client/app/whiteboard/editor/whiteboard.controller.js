@@ -16,6 +16,9 @@ function WhiteboardController($scope, LoadWhiteboard, InitWhiteboard, Whiteboard
     
     function initDiagram() {
         var watcher = $scope.$watch('Whiteboard.all', function() {
+            if (!Whiteboard.isFilled()) {
+                return;
+            }
             ctrl.whiteboard = Whiteboard.read({_id: $scope.id});
             
             if (!ctrl.whiteboard) {
