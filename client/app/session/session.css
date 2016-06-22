@@ -1,0 +1,27 @@
+.sessions {
+    text-align: center;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../assets/background-dark.png);
+}
+
+.connect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.login, .signup {
+    width: 300px;
+    text-align: left;
+    border: 1px solid rgba(1,1,1,0.3);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 3px;
+    display: inline-block;
+    background-image: url(../assets/background-light.png);
+}
